@@ -66,18 +66,10 @@ st.title("🔐 Password Strength Checker")
 if "button_disabled" not in st.session_state:
     st.session_state.button_disabled = False
 
-# Function to copy password and disable button
-def copy_to_clipboard():
-    pyperclip.copy(st.session_state.password)  # Copy password to clipboard
-    st.session_state.button_disabled = True
-    st.success("✅ Password copied to clipboard!")
 
 # Password Input Field
 password = st.text_input("Enter your password:", key="password", on_change=lambda: setattr(st.session_state, "button_disabled", False))
 
-# Copy Button (disabled after clicking)
-if st.button("Copy to Clipboard", disabled=st.session_state.button_disabled, on_click=copy_to_clipboard):
-    pass
 
 # Check password strength when input is given
 if password:
