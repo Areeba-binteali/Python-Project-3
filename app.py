@@ -2,7 +2,6 @@ import streamlit as st
 import re
 import random
 import string
-import pyperclip
 
 # List of common passwords
 common_passwords = [
