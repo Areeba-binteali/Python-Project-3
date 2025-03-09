@@ -16,9 +16,10 @@ def check_password_strength(password):
     if password.lower() in common_passwords:
         st.write("❌ This password is too common and insecure. Please choose a stronger one.")
         suggest_strong_password()
-        return
+        return 0  # Weakest score
 
     score = 0
+    
     if len(password) >= 8:
         score += 1
     else:
@@ -44,14 +45,85 @@ def check_password_strength(password):
     else:
         st.write("❌ Include at least one special character (!@#$%^&*).")
 
+
+     # Generate dynamic width for progress bar
+    progress_width = (score / 5) * 100  # Convert score (0-5) to percentage (0-100)
+
+    # HTML for progress bar with gradient colors
+    if (progress_width == 20):
+        progress_bar_html = f"""
+        <div style="width: 100%; background-color: white; border-radius: 10px;">
+            <div style="
+                width: {progress_width}%;
+                height: 10px;
+                border-radius: 10px;
+                background: linear-gradient(to right, red, red);
+                "></div>
+        </div>
+        """
+        
+    if (progress_width == 40):
+        progress_bar_html = f"""
+        <div style="width: 100%; background-color: white; border-radius: 10px;">
+            <div style="
+                width: {progress_width}%;
+                height: 10px;
+                border-radius: 10px;
+                background: linear-gradient(to right, red, orange);
+                "></div>
+        </div>
+        """
+
+    if (progress_width == 60):
+        progress_bar_html = f"""
+        <div style="width: 100%; background-color: white; border-radius: 10px;">
+            <div style="
+                width: {progress_width}%;
+                height: 10px;
+                border-radius: 10px;
+                background: linear-gradient(to right, red, #eb5834, orange);
+                "></div>
+        </div>
+        """
+
+    if (progress_width == 80):
+        progress_bar_html = f"""
+        <div style="width: 100%; background-color: white; border-radius: 10px;">
+            <div style="
+                width: {progress_width}%;
+                height: 10px;
+                border-radius: 10px;
+                background: linear-gradient(to right, red, #eb5834, orange, yellow);
+                "></div>
+        </div>
+        """
+
+    if (progress_width == 100):
+        progress_bar_html = f"""
+        <div style="width: 100%; background-color: white; border-radius: 10px;">
+            <div style="
+                width: {progress_width}%;
+                height: 10px;
+                border-radius: 10px;
+                background: linear-gradient(to right, red, #eb5834, orange, yellow, green);
+                "></div>
+        </div>
+        """
+
     if score == 5:
+        st.markdown(progress_bar_html, unsafe_allow_html=True)
         st.write("✅ Strong Password!")
-    elif score >= 3:
+        st.balloons()
+    elif score >= 3: 
+        st.markdown(progress_bar_html, unsafe_allow_html=True)
         suggest_strong_password()
         st.write("⚠️ Moderate Password - Consider adding more security features.")
     else:
+        st.markdown(progress_bar_html, unsafe_allow_html=True)
         suggest_strong_password()
         st.write("❌ Weak Password - Improve it using the suggestions above.")
+
+    return score  # Return score to update the progress bar
 
 # Function to suggest a strong password
 def suggest_strong_password():
@@ -62,19 +134,14 @@ def suggest_strong_password():
 # Streamlit UI
 st.title("🔐 Password Strength Checker")
 
-# Initialize session state for button control
-if "button_disabled" not in st.session_state:
-    st.session_state.button_disabled = False
-
-
-
-
 # Password Input Field
-password = st.text_input("Enter your password:", key="password", on_change=lambda: setattr(st.session_state, "button_disabled", False))
+password = st.text_input("Enter your password:", key="password")
+
+# Display the entered password
 st.code(password)
 
-
-# Check password strength when input is given
+# Check password strength
 if password:
-    check_password_strength(password)
+    strength = check_password_strength(password)
 
+   
