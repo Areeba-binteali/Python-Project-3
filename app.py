@@ -121,7 +121,7 @@ def check_password_strength(password):
     else:
         suggest_strong_password()
         st.markdown(progress_bar_html, unsafe_allow_html=True)
-        st.write("❌ Weak Password - Improve it using the suggestions above.")
+        st.write("❌ Weak Password - Improve it using the suggestions below.")
 
     return score  # Return score to update the progress bar
 
