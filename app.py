@@ -115,12 +115,12 @@ def check_password_strength(password):
         st.write("✅ Strong Password!")
         st.balloons()
     elif score >= 3: 
-        st.markdown(progress_bar_html, unsafe_allow_html=True)
         suggest_strong_password()
+        st.markdown(progress_bar_html, unsafe_allow_html=True)
         st.write("⚠️ Moderate Password - Consider adding more security features.")
     else:
-        st.markdown(progress_bar_html, unsafe_allow_html=True)
         suggest_strong_password()
+        st.markdown(progress_bar_html, unsafe_allow_html=True)
         st.write("❌ Weak Password - Improve it using the suggestions above.")
 
     return score  # Return score to update the progress bar
