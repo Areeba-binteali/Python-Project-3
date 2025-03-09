@@ -47,16 +47,17 @@ def check_password_strength(password):
     if score == 5:
         st.write("✅ Strong Password!")
     elif score >= 3:
+        suggest_strong_password()
         st.write("⚠️ Moderate Password - Consider adding more security features.")
-        suggest_strong_password()
     else:
-        st.write("❌ Weak Password - Improve it using the suggestions above.")
         suggest_strong_password()
+        st.write("❌ Weak Password - Improve it using the suggestions above.")
 
 # Function to suggest a strong password
 def suggest_strong_password():
     password = ''.join(random.choices(string.ascii_letters + string.digits + "!@#$%^&*", k=12))
-    st.write(f"💡 Suggested Strong Password: {password}")
+    st.write("💡 Suggested Strong Password:")
+    st.code(password)
 
 # Streamlit UI
 st.title("🔐 Password Strength Checker")
@@ -66,10 +67,14 @@ if "button_disabled" not in st.session_state:
     st.session_state.button_disabled = False
 
 
+
+
 # Password Input Field
 password = st.text_input("Enter your password:", key="password", on_change=lambda: setattr(st.session_state, "button_disabled", False))
+st.code(password)
 
 
 # Check password strength when input is given
 if password:
     check_password_strength(password)
+
