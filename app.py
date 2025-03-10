@@ -132,7 +132,7 @@ def suggest_strong_password():
     st.code(password)
 
 # Streamlit UI
-st.title("🔐 Password Strength Checker")
+st.title("🔐 Password Strength Meter")
 
 # Password Input Field
 password = st.text_input("Enter your password:", key="password")
